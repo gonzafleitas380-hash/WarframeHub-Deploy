@@ -1,0 +1,458 @@
+USE warframe;
+
+DELIMITER $$
+
+-- 1. Cambiar username
+
+CREATE PROCEDURE sp_cambiar_username(
+    IN p_id_usuario INT,
+    IN p_nuevo_username VARCHAR(45)
+)
+BEGIN
+    IF p_nuevo_username = '' OR p_nuevo_username IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el username no puede estar vacío.';
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM usuarios WHERE id_usuario = p_id_usuario) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el usuario no existe.';
+    END IF;
+
+    IF EXISTS (
+        SELECT 1 FROM usuarios
+        WHERE username = p_nuevo_username
+          AND id_usuario <> p_id_usuario
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: ese username ya está en uso.';
+    END IF;
+
+    UPDATE usuarios
+    SET username = p_nuevo_username
+    WHERE id_usuario = p_id_usuario;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+
+DELIMITER ;
+
+-- 2. Cambiar contrasena
+DELIMITER $$
+
+CREATE PROCEDURE sp_cambiar_contrasena(
+    IN p_id_usuario        INT,
+    IN p_contrasena_actual VARCHAR(255),
+    IN p_contrasena_nueva  VARCHAR(255)
+)
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM usuarios
+        WHERE id_usuario = p_id_usuario
+          AND contrasena = p_contrasena_actual
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: la contraseña actual es incorrecta.';
+    END IF;
+
+    IF p_contrasena_nueva = '' OR p_contrasena_nueva IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: la nueva contraseña no puede estar vacía.';
+    END IF;
+
+    IF p_contrasena_nueva = p_contrasena_actual THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: la nueva contraseña debe ser diferente a la actual.';
+    END IF;
+
+    UPDATE usuarios
+    SET contrasena = p_contrasena_nueva
+    WHERE id_usuario = p_id_usuario;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+
+DELIMITER ;
+
+-- 3. Cambiar nombre
+DELIMITER $$
+
+CREATE PROCEDURE sp_cambiar_nombre(
+    IN p_id_usuario   INT,
+    IN p_nuevo_nombre VARCHAR(45)
+)
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM usuarios WHERE id_usuario = p_id_usuario) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el usuario no existe.';
+    END IF;
+
+    IF p_nuevo_nombre = '' OR p_nuevo_nombre IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el nombre no puede estar vacío.';
+    END IF;
+
+    UPDATE usuarios
+    SET nombre = p_nuevo_nombre
+    WHERE id_usuario = p_id_usuario;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+DELIMITER ;
+
+-- 4. Cambiar apellido
+DELIMITER $$
+
+CREATE PROCEDURE sp_cambiar_apellido(
+    IN p_id_usuario     INT,
+    IN p_nuevo_apellido VARCHAR(45)
+)
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM usuarios WHERE id_usuario = p_id_usuario) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el usuario no existe.';
+    END IF;
+
+    IF p_nuevo_apellido = '' OR p_nuevo_apellido IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el apellido no puede estar vacío.';
+    END IF;
+
+    UPDATE usuarios
+    SET apellido = p_nuevo_apellido
+    WHERE id_usuario = p_id_usuario;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+DELIMITER ;
+
+-- 5. Cambiar avatar
+DELIMITER $$
+
+CREATE PROCEDURE sp_cambiar_avatar(
+    IN p_id_usuario   INT,
+    IN p_nuevo_avatar VARCHAR(255)
+)
+BEGIN
+    DECLARE v_perfil_id INT;
+
+    SELECT perfil_id_perfil INTO v_perfil_id
+    FROM usuarios WHERE id_usuario = p_id_usuario;
+
+    IF v_perfil_id IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: no se encontró perfil para ese usuario.';
+    END IF;
+
+    UPDATE perfil
+    SET avatar = p_nuevo_avatar
+    WHERE id_perfil = v_perfil_id;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+DELIMITER ;
+
+-- 6. Cambiar banner
+DELIMITER $$
+
+CREATE PROCEDURE sp_cambiar_banner(
+    IN p_id_usuario   INT,
+    IN p_nuevo_banner VARCHAR(255)
+)
+BEGIN
+    DECLARE v_perfil_id INT;
+
+    SELECT perfil_id_perfil INTO v_perfil_id
+    FROM usuarios WHERE id_usuario = p_id_usuario;
+
+    IF v_perfil_id IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: no se encontró perfil para ese usuario.';
+    END IF;
+
+    UPDATE perfil
+    SET banner = p_nuevo_banner
+    WHERE id_perfil = v_perfil_id;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+DELIMITER ;
+
+-- 7. Cambiar descripcion
+DELIMITER $$
+
+CREATE PROCEDURE sp_cambiar_descripcion(
+    IN p_id_usuario        INT,
+    IN p_nueva_descripcion TEXT
+)
+BEGIN
+    DECLARE v_perfil_id INT;
+
+    SELECT perfil_id_perfil INTO v_perfil_id
+    FROM usuarios WHERE id_usuario = p_id_usuario;
+
+    IF v_perfil_id IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: no se encontró perfil para ese usuario.';
+    END IF;
+
+    UPDATE perfil
+    SET descripcion = p_nueva_descripcion
+    WHERE id_perfil = v_perfil_id;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+DELIMITER ;
+
+-- 8. Registrar usuario
+DELIMITER $$
+
+CREATE PROCEDURE sp_registrar_usuario(
+    IN p_nombre     VARCHAR(45),
+    IN p_apellido   VARCHAR(45),
+    IN p_username   VARCHAR(45),
+    IN p_email      VARCHAR(45),
+    IN p_contrasena VARCHAR(255)
+)
+BEGIN
+    DECLARE v_perfil_id INT;
+
+    IF p_nombre = '' OR p_nombre IS NULL OR
+       p_apellido = '' OR p_apellido IS NULL OR
+       p_username = '' OR p_username IS NULL OR
+       p_email = '' OR p_email IS NULL OR
+       p_contrasena = '' OR p_contrasena IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: todos los campos son obligatorios.';
+    END IF;
+
+    START TRANSACTION;
+
+        INSERT INTO perfil (avatar, banner, descripcion)
+        VALUES (NULL, NULL, NULL);
+
+        SET v_perfil_id = LAST_INSERT_ID();
+
+        INSERT INTO usuarios (
+            nombre,
+            apellido,
+            username,
+            email,
+            contrasena,
+            perfil_id_perfil
+        )
+        VALUES (
+            p_nombre,
+            p_apellido,
+            p_username,
+            p_email,
+            p_contrasena,
+            v_perfil_id
+        );
+
+    COMMIT;
+
+    SELECT LAST_INSERT_ID() AS id_usuario_creado,
+           v_perfil_id AS id_perfil_creado;
+END$$
+DELIMITER ;
+
+-- 9. Login
+DELIMITER $$
+
+CREATE PROCEDURE sp_login(
+    IN p_username   VARCHAR(45),
+    IN p_contrasena VARCHAR(255)
+)
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM usuarios
+        WHERE username = p_username
+          AND contrasena = p_contrasena
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: usuario o contraseña incorrectos.';
+    END IF;
+
+    SELECT
+        u.id_usuario,
+        u.nombre,
+        u.apellido,
+        u.username,
+        u.email,
+        p.id_perfil,
+        p.avatar,
+        p.banner,
+        p.descripcion
+    FROM usuarios u
+    INNER JOIN perfil p ON u.perfil_id_perfil = p.id_perfil
+    WHERE u.username = p_username
+      AND u.contrasena = p_contrasena;
+END$$
+DELIMITER ;
+
+-- 10.SP de búsqueda de usuario
+DELIMITER $$
+
+CREATE PROCEDURE sp_buscar_usuario(
+    IN p_busqueda VARCHAR(45)
+)
+BEGIN
+    IF p_busqueda = '' OR p_busqueda IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: ingresá un término de búsqueda.';
+    END IF;
+
+    SELECT
+        u.id_usuario,
+        u.nombre,
+        u.apellido,
+        u.username,
+        u.email,
+        p.avatar,
+        p.descripcion
+    FROM usuarios u
+    INNER JOIN perfil p ON u.perfil_id_perfil = p.id_perfil
+    WHERE u.username LIKE CONCAT('%', p_busqueda, '%')
+       OR u.nombre   LIKE CONCAT('%', p_busqueda, '%')
+       OR u.apellido LIKE CONCAT('%', p_busqueda, '%')
+       OR u.email    LIKE CONCAT('%', p_busqueda, '%');
+END$$
+DELIMITER ;
+
+-- 11. cambiar email
+DELIMITER $$
+
+CREATE PROCEDURE sp_cambiar_email(
+    IN p_id_usuario INT,
+    IN p_nuevo_email VARCHAR(45)
+)
+BEGIN
+    IF p_nuevo_email = '' OR p_nuevo_email IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el email no puede estar vacío.';
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1
+        FROM usuarios
+        WHERE id_usuario = p_id_usuario
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: el usuario no existe.';
+    END IF;
+
+    UPDATE usuarios
+    SET email = p_nuevo_email
+    WHERE id_usuario = p_id_usuario;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+DELIMITER ;
+
+-- 12. guardar compra
+DELIMITER $$
+
+CREATE PROCEDURE sp_guardar_compra(
+    IN p_id_usuario INT,
+    IN p_nombre_item VARCHAR(100),
+    IN p_item_url_nombre VARCHAR(255),
+    IN p_vendedor VARCHAR(45),
+    IN p_precio DECIMAL(10,2),
+    IN p_estado_vendedor VARCHAR(45)
+)
+BEGIN
+    INSERT INTO compras_guardadas (
+        id_usuario,
+        nombre_item,
+        item_url_nombre,
+        vendedor,
+        precio,
+        estado_vendedor,
+        fecha_guardado
+    )
+    VALUES (
+        p_id_usuario,
+        p_nombre_item,
+        p_item_url_nombre,
+        p_vendedor,
+        p_precio,
+        p_estado_vendedor,
+        NOW()
+    );
+
+    SELECT LAST_INSERT_ID() AS id_compra_guardada;
+END$$
+DELIMITER ;
+
+-- 13. eliminar compra
+DELIMITER $$
+
+CREATE PROCEDURE sp_eliminar_compra(
+    IN p_id_compra INT
+)
+BEGIN
+    DELETE FROM compras_guardadas
+    WHERE id_compra = p_id_compra;
+
+    SELECT ROW_COUNT() AS filas_afectadas;
+END$$
+DELIMITER ;
+
+-- 14. obtener compras
+DELIMITER $$
+
+CREATE PROCEDURE sp_obtener_compras(
+    IN p_id_usuario INT
+)
+BEGIN
+    SELECT
+        id_compra,
+        nombre_item,
+        item_url_nombre,
+        vendedor,
+        precio,
+        estado_vendedor,
+        fecha_guardado
+    FROM compras_guardadas
+    WHERE id_usuario = p_id_usuario
+    ORDER BY fecha_guardado DESC;
+END$$
+
+DELIMITER ;
+
+
+-- Para llamar a los sp
+
+CALL sp_cambiar_username(1, 'nuevoUsername');
+
+CALL sp_cambiar_contrasena(1, 'contraseñaActual', 'contraseñaNueva');
+
+CALL sp_cambiar_nombre(1, 'NuevoNombre');
+
+CALL sp_cambiar_apellido(1, 'NuevoApellido');
+
+CALL sp_cambiar_avatar(1, 'https://url.com/avatar.png');
+
+CALL sp_cambiar_banner(1, 'https://url.com/banner.png');
+
+CALL sp_cambiar_descripcion(1, 'Nueva descripción del perfil');
+
+CALL sp_registrar_usuario('Nombre', 'Apellido', 'username', 'contraseña');
+
+CALL sp_login('username', 'contraseña');
+
+CALL sp_buscar_usuario('Nombre del usuario');
+
+CALL sp_guardar_compra(
+    1,
+    'Wisp Prime Set',
+    'https://warframe.market/items/wisp_prime_set',
+    'Jugador123',
+    95,
+    'online'
+);
+
+CALL sp_eliminar_compra(1);
+
+CALL sp_obtener_compras(1);

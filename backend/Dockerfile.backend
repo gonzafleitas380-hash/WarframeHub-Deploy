@@ -1,0 +1,84 @@
+# ============================================================
+# Dockerfile — Backend (Node.js ESM → bundle CJS → bytecode V8)
+# ============================================================
+# IMPORTANTE: los dos FROM deben usar EXACTAMENTE la misma imagen
+# de Node. El bytecode que genera bytenode está atado a la versión
+# de V8 con la que se compiló; si el stage final corre con otra
+# versión de Node, el .jsc se rechaza al arrancar.
+
+# --- Stage 1: build ---
+FROM node:20.18.1-bookworm-slim AS builder
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# 1) esbuild resuelve todos los import/export de server.js y sus
+#    rutas y los junta en un único archivo CommonJS. Dejamos afuera
+#    del bundle (--external) los node_modules que son CommonJS
+#    normales — no son código propio, no hace falta empaquetarlos.
+#    node-fetch NO se marca como external a propósito: es un paquete
+#    ESM-only (v3), y un require() directo de un paquete ESM falla en
+#    Node. Al dejar que esbuild lo empaquete, lo convierte a CJS como
+#    parte del bundle, evitando ese problema.
+#
+#    server.js, routes/warframes.js y routes/uploads.js calculan
+#    __dirname con fileURLToPath(import.meta.url) (patrón típico de
+#    ESM). En formato CJS, import.meta.url queda vacío — por eso el
+#    --banner define un reemplazo calculado con el __filename nativo
+#    de CommonJS, y --define hace que todo uso de import.meta.url en
+#    el bundle apunte a ese reemplazo.
+RUN npx esbuild server.js \
+      --bundle \
+      --platform=node \
+      --format=cjs \
+      --external:express \
+      --external:mysql2 \
+      --external:multer \
+      --external:cors \
+      --external:dotenv \
+      --banner:js="const import_meta_url = require('url').pathToFileURL(__filename).href;" \
+      --define:import.meta.url=import_meta_url \
+      --outfile=dist/bundle.cjs
+
+# 2) bytenode compila ESE ÚNICO archivo (ya CJS) a bytecode V8.
+#    Como bytenode nunca ve un import/export original, el problema
+#    de soporte ESM de bytenode no aplica acá.
+RUN npx bytenode --compile dist/bundle.cjs
+
+# 3) El package.json real del proyecto dice "type": "module" (por
+#    eso el código fuente usa import/export). Node aplica ese ajuste
+#    a TODA la carpeta, incluida dist/, y el cargador ESM no sabe
+#    qué hacer con un .jsc — por eso hace falta este package.json
+#    propio de dist/, que le dice a Node "acá adentro es CommonJS",
+#    sin tocar el "type": "module" del resto del proyecto.
+RUN echo '{"type":"commonjs"}' > dist/package.json
+
+# 4) Borramos el .cjs legible: en la imagen final solo debe quedar
+#    el .jsc (bytecode). Si no se borra, el "compilado" no sirve
+#    de nada porque el código fuente empaquetado sigue ahí, legible.
+RUN rm dist/bundle.cjs
+
+# --- Stage 2: imagen final ---
+FROM node:20.18.1-bookworm-slim
+WORKDIR /app
+
+# Solo dependencias de producción (bytenode incluido: hace falta en
+# runtime para registrar el loader que ejecuta el .jsc; esbuild NO
+# hace falta acá, es una herramienta de build, no de runtime).
+COPY package*.json ./
+RUN npm install --omit=dev --omit=optional
+
+# Copiamos únicamente el artefacto ya compilado y los datos de la
+# app (JSONs de warframes) — nunca los .js originales ni las rutas.
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/data ./data
+
+# El .env NO se copia a la imagen: las credenciales de la base se
+# inyectan como variables de entorno en tiempo de ejecución
+# (docker-compose env_file, o --env-file / -e en docker run).
+
+EXPOSE 3001
+CMD ["node", "-r", "bytenode", "dist/bundle.jsc"]

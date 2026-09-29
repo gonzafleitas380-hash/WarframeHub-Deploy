@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wisp — WARFRAME HUB</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:ital,wght@0,200;0,400;0,600;0,800;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><a href="hola.html" target="_blank">War<span>Frame</span> HUB</a></div>
+  <div class="nav-breadcrumb">Warframes › <span>Wisp</span></div>
+  <div class="profile-wrapper">
+      <div class="profile-avatar">
+          <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="profile-dropdown">
+          <a href="#">My Profile</a>
+      </div>
+   </div>
+</nav>
+
+<!-- STICKY STATS BAR (replaces the TOC sidebar card + shows key stats at a glance) -->
+<div class="stats-bar">
+  <div class="sbar-toc">
+    <a href="#description">Descripción</a>
+    <a href="#abilities">Habilidades</a>
+    <a href="#crafting">Construcción</a>
+    <a href="#acquisition">Adquisición</a>
+    <a href="#curiosities">Curiosidades</a>
+    <a href="#builds">Builds</a>
+  </div>
+</div>
+
+<div class="wsp__card-root--frame">
+    <div class="wsp__scanline--anim_pass"></div>
+    <div class="wsp__corner-deco--top_left"></div>
+    <div class="wsp__corner-deco--bottom_right"></div>
+
+    <div class="wsp__img-placeholder--empty">
+      <img src="build-bg/wispprime.png" alt="">
+    </div>
+
+    <div class="wsp__hud-overlay--bottom_left">
+
+      <div class="wsp__hud-panel--info_block">
+        <div class="wsp__label-tag--section_title">Rol</div>
+        <div class="wsp__value-text--primary_display">Soporte</div>
+      </div>
+
+      <div class="wsp__hud-panel--info_block">
+        <div class="wsp__label-tag--section_title">Complejidad</div>
+        <div class="wsp__dots-row--complexity_track">
+          <div class="wsp__dot--circle_filled"></div>
+          <div class="wsp__dot--circle_filled"></div>
+          <div class="wsp__dot--circle_filled"></div>
+          <div class="wsp__dot--circle_empty"></div>
+          <div class="wsp__dot--circle_empty"></div>
+          <span class="wsp__ratio-label--fraction_display">3 / 5</span>
+        </div>
+      </div>
+
+      <div class="wsp__hud-panel--info_block">
+        <div class="wsp__label-tag--section_title">Tip</div>
+        <div class="wsp__tip-text--body_copy">
+          Solo una de cada <em>Mota</em> es capaz de sujetarse a <em>Wisp</em> y a sus aliados en cualquier momento.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+<!-- MAIN LAYOUT -->
+<div class="page-wrapper">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="sidebar">
+    <div class="warframe-card">
+      <div class="card-header">
+        <div class="warframe-name">Wisp</div>
+        <div class="warframe-epithet">Entidad Solar · Soporte y Control</div>
+      </div>
+      <div class="warframe-img-wrapper">
+        <div class="img-glow-ring"></div>
+        <img src="Warframes/Wisp.webp" alt="Ash Warframe" class="warframe-img">
+      </div>
+      <table class="info-table">
+        <tr><th>Sexo</th><td class="accent">Femenino</td></tr>
+        <tr><th>Maestría</th><td>MR 0</td></tr>
+        <tr><th>Fecha de lanzamiento</th><td>May 22, 2019</td></tr>
+        <tr><th>Actualización</th><td>Update 25.0</td></tr>
+        <tr><th>Polaridades</th><td class="blue">Madurai · Vazarin</td></tr>
+        <tr><th>Polaridad del Exilus</th><td class="blue">-</td></tr>
+        <tr><th>Polaridad Aura</th><td class="blue">Naramon</td></tr>
+        <tr><th>Velocidad</th><td>1.20</td></tr>
+        <tr><th>Playstyle</th><td>Soporte</td></tr>
+        <tr><th>Hab. del Helminto</th><td>Breach Surge</td></tr>
+        <tr><th>Elem. Progenitor</th><td>🔥 Calor</td></tr>
+      </table>
+      <div class="damage-tags">
+        <div class="damage-label">Tipos de daño</div>
+        <span class="dmg-tag dmg-slash">🔥 Calor</span>
+        <span class="dmg-tag dmg-toxin">⚡ Electricidad</span>
+        <span class="dmg-tag dmg-bleed">☢ Radiación</span>
+      </div>
+      <div class="stat-bars">
+        <div class="stat-row-header">
+          <span></span>
+          <span class="stat-legend"><span class="dot-base"></span>Base</span>
+          <span class="stat-legend prime-leg"><span class="dot-prime"></span>Prime</span>
+        </div>
+
+        <!-- VIDA -->
+        <div class="stat-group">
+          <div class="stat-group-label">Vida</div>
+          <div class="stat-row">
+            <span class="tag-base">Base</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-base" style="width:46%;--delay:0.3s"></div></div>
+            <span class="stat-val">370</span>
+            <span class="diff-badge no-diff">—</span>
+          </div>
+          <div class="stat-row">
+            <span class="tag-prime">Prime</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-prime" style="width:46%;--delay:0.4s"></div></div>
+            <span class="stat-val">370</span>
+            <span class="diff-badge no-diff">—</span>
+          </div>
+        </div>
+
+        <!-- ESCUDO -->
+        <div class="stat-group">
+          <div class="stat-group-label">Escudo</div>
+          <div class="stat-row">
+            <span class="tag-base">Base</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-base" style="width:35%;--delay:0.4s"></div></div>
+            <span class="stat-val">280</span>
+            <span class="diff-badge no-diff">—</span>
+          </div>
+          <div class="stat-row">
+            <span class="tag-prime">Prime</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-prime" style="width:46%;--delay:0.5s"></div></div>
+            <span class="stat-val">370</span>
+            <span class="diff-badge">+90</span>
+          </div>
+        </div>
+
+        <!-- ARMADURA -->
+        <div class="stat-group">
+          <div class="stat-group-label">Armadura</div>
+          <div class="stat-row">
+            <span class="tag-base">Base</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-base" style="width:23%;--delay:0.5s"></div></div>
+            <span class="stat-val">185</span>
+            <span class="diff-badge no-diff">—</span>
+          </div>
+          <div class="stat-row">
+            <span class="tag-prime">Prime</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-prime" style="width:26%;--delay:0.6s"></div></div>
+            <span class="stat-val">210</span>
+            <span class="diff-badge">+25</span>
+          </div>
+        </div>
+
+        <!-- ENERGÍA -->
+        <div class="stat-group">
+          <div class="stat-group-label">Energía</div>
+          <div class="stat-row">
+            <span class="tag-base">Base</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-base" style="width:37%;--delay:0.6s"></div></div>
+            <span class="stat-val">300</span>
+            <span class="diff-badge no-diff">—</span>
+          </div>
+          <div class="stat-row">
+            <span class="tag-prime">Prime</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill fill-prime" style="width:37%;--delay:0.7s"></div></div>
+            <span class="stat-val">300</span>
+            <span class="diff-badge no-diff">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════ MAIN CONTENT ══════ -->
+  <main class="main-content">
+    <div class="page-title-block">
+      <div class="page-title"><em>Wisp</em></div>
+      <div class="page-subtitle">// CODEX ENTRY · TENNO WARFRAME · DESIGNACIÓN: ENTIDAD DE SOPORTE SOLAR CLASE WISP</div>
+    </div>
+
+    <!-- 01 DESCRIPTION -->
+    <section class="section" id="description">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Descripción</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="section-body">
+        <div class="lore-quote">
+          <p>"Wisp flota entre lo material y lo etéreo. Accede a múltiples dimensiones para apoyar a sus aliados. Su semblante es misterioso y enigmático."</p>
+          <cite>— Codex · Tenno Lore Archive</cite>
+        </div>
+        <p>Wisp es un <strong>Warframe de soporte y control</strong> altamente versátil, especializada en potenciar aliados mientras debilita y desorienta a sus enemigos mediante energía etérea y luz solar. Con una presencia casi fantasmal, Wisp flota constantemente sobre el suelo, lo que refuerza su estilo evasivo y su capacidad para evitar daño directo, desapareciendo del alcance enemigo cuando se mantiene en el aire.</p>
+        <p>Sus habilidades giran en torno a la <strong>mejora continua del equipo</strong> mediante sus Reservoirs, además de control de masas a través de cegado y propagación de daño. Wisp combina daño de energía radiante con efectos de estado como Electricidad, permitiéndole ser efectiva tanto contra grupos numerosos como en situaciones de presión constante, mientras mantiene a su escuadrón con ventajas sostenidas.</p>
+      </div>
+    </section>
+
+    <!-- 02 ABILITIES -->
+    <section class="section abilities-section" id="abilities">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">HABILIDADES</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="abilities-grid">
+        <div class="ability-card"><div class="ability-key">1 — HABILIDAD</div><img src="Ability/WispReservoir.png" alt=""><div class="ability-name">Reservoirs</div>
+        <div class="popup">
+            <div class="popup-img-placeholder">
+              <video src="Ability/reservoirs.webm" muted loop autoplay></video>
+            </div>
+          <div class="popup-body">
+            <div class="popup-title">Reservoirs</div>
+            <div class="popup-rank">RANGO MAX</div>
+            <div class="popup-stats">
+              <div class="stat-row">
+                <span class="stat-label">Costo de energía</span>
+                <span class="stat-value teal"><i class="fa-solid fa-atom"></i> 25</span>
+              </div>
+            <div class="stat-row">
+              <span class="stat-label">Radio</span>
+              <span class="stat-value green">5m</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Duración del Buff</span>
+              <span class="stat-value green">30s</span>
+            </div>
+            <div class="stat-row">
+              <div class="stat-label"><strong style="color:var(--accent2)">MOTA DE VITALIDAD</strong></div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Duración del Buff</span>
+              <span class="stat-value green">30s</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Curación por segundo</span>
+              <span class="stat-value green">45</span>
+            </div>
+            <div class="stat-row">
+              <div class="stat-label"><strong style="color:var(--accent2)">MOTA DE RAPIDEZ</strong></div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Multiplicador de velocidad</span>
+              <span class="stat-value green">30%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Cadencia de disparo</span>
+              <span class="stat-value green">45%</span>
+            </div>
+            <div class="stat-row">
+              <div class="stat-label"><strong style="color:var(--accent2)">MOTA DE DESCARGA</strong></div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Chance de estado</span>
+              <span class="stat-value green"><i class="fa-solid fa-bolt"></i>100%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Rango</span>
+              <span class="stat-value green">15m</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Objetivos</span>
+              <span class="stat-value green">5</span>
+            </div>
+            </div>
+          </div>
+          <div class="popup-footer">
+            <span>TIENE AUGMENTS</span>
+          </div>
+          </div>
+        </div>
+        <div class="ability-card"><div class="ability-key">2 — HABILIDAD</div><img src="Ability/WispLight.png" alt=""><div class="ability-name">Wil-O-Wisp</div>
+          <div class="popup">
+            <div class="popup-img-placeholder">
+              <video src="Ability/wil-o-wisp.webm" muted loop autoplay></video>
+            </div>
+          <div class="popup-body">
+            <div class="popup-title">Wil-O-Wisp</div>
+            <div class="popup-rank">RANGO MAX</div>
+            <div class="popup-stats">
+              <div class="stat-row">
+                <span class="stat-label">Costo de energía</span>
+                <span class="stat-value teal"><i class="fa-solid fa-atom"></i> 35</span>
+              </div>
+            <div class="stat-row">
+              <span class="stat-label">Duración</span>
+              <span class="stat-value green">4s</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Invulnerabilidad</span>
+              <span class="stat-value green">3s</span>
+            </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="ability-card"><div class="ability-key">3 — HABILIDAD</div><img src="Ability/WispHarnessTheLight.png" alt=""><div class="ability-name">Breach Surge</div>
+        <div class="popup">
+            <div class="popup-img-placeholder">
+              <video src="Ability/breach-surge.webm" muted loop autoplay></video>
+            </div>
+          <div class="popup-body">
+            <div class="popup-title">Breach Surge</div>
+            <div class="popup-rank">RANGO MAX</div>
+            <div class="popup-stats">
+              <div class="stat-row">
+                <span class="stat-label">Costo de energía</span>
+                <span class="stat-value teal"><i class="fa-solid fa-atom"></i> 50</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Radio</span>
+                <span class="stat-value green">18m</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Duración de cegado</span>
+                <span class="stat-value green">16s</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Multiplicador de daño</span>
+                <span class="stat-value green">3x</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Chance de estado</span>
+                <span class="stat-value green">30%</span>
+              </div>
+            </div>
+          </div>
+          <div class="popup-footer">
+            <span>TIENE AUGMENTS</span>
+          </div>
+          </div>
+        </div>
+        <div class="ability-card"><div class="ability-key">4 — HABILIDAD</div><img src="Ability/WispSolGate.png" alt=""><div class="ability-name">Sol Gate</div>
+        <div class="popup">
+            <div class="popup-img-placeholder">
+              <video src="Ability/sol-gate.webm" muted loop autoplay></video>
+            </div>
+          <div class="popup-body">
+            <div class="popup-title">Sol Gate</div>
+            <div class="popup-rank">RANGO MAX</div>
+            <div class="popup-stats">
+              <div class="stat-row">
+                <span class="stat-label">Costo de energía</span>
+                <span class="stat-value teal"><i class="fa-solid fa-atom"></i> 25</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Energía por segundo</span>
+                <span class="stat-value teal"><i class="fa-solid fa-atom"></i>12</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Daño por segundo</span>
+                <span class="stat-value green"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-radiation"></i> 2,250</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Rango</span>
+                <span class="stat-value green">40m</span>
+              </div>
+            </div>
+          </div>
+          <div class="popup-footer">
+            <span>TIENE AUGMENTS</span>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="ability-detail">
+        <div class="ability-detail-icon"><img src="Ability/passive.png" alt=""></div>
+        <div><div class="ability-detail-key">PASIVA</div><div class="ability-detail-name">PASIVA</div><div class="ability-detail-desc">Fluyendo entre dimensiones, Wisp se vuelve <strong style="color:var(--damage-bleed)">invisible</strong> para los enemigos mientras está en el aire.</div></div>
+      </div>
+      <div class="ability-detail">
+        <div class="ability-detail-icon"><img src="Ability/WispReservoir.png" alt=""></div>
+        <div><div class="ability-detail-key">1 — HABILIDAD</div><div class="ability-detail-name">RESERVOIRS</div><div class="ability-detail-desc">Elige e invoca un Reservorio lleno de motas que se adhieren y ayudan a Wisp y a sus aliados. La <strong style="color:var(--damage-toxin)">Mota de Rapidez</strong> aumenta la velocidad de movimiento y de ataque. La <strong style="color:var(--damage-bleed)">Mota de Vitalidad</strong> incrementa la salud máxima y cura con el tiempo. La <strong style="color:var(--damage-elec)">Mota de Descarga</strong> aturde a los enemigos cercanos.<br><span class="ability-aug">⬡ AUGMENT — Fused Reservoir: Invoca los tres Reservoirs a la vez. Cuesta 200% más <strong style="color:var(--damage-energy)">energía.</strong></span></div></div>
+      </div>
+      <div class="ability-detail">
+        <div class="ability-detail-icon"><img src="Ability/WispLight.png" alt=""></div>
+        <div><div class="ability-detail-key">2 — HABILIDAD</div><div class="ability-detail-name">WIL-O-WISP</div><div class="ability-detail-desc">Lanza una proyección de Wisp que distrae a los <strong style="color:var(--damage-bleed)">enemigos</strong>; reactiva para teletransportarte a su posición o mantén para enviarla más lejos y trasladarte al soltar.</div></div>
+      </div>
+      <div class="ability-detail">
+        <div class="ability-detail-icon"><img src="Ability/WispHarnessTheLight.png" alt=""></div>
+        <div><div class="ability-detail-key">3 — HABILIDAD</div><div class="ability-detail-name">BREACH SURGE</div><div class="ability-detail-desc">Abre una brecha dimensional que abruma a los <strong style="color:var(--damage-bleed)">enemigos cercanos</strong> y hace que liberen chispas de Surge agresivas al recibir daño. Wisp también puede apuntar a un Reservoir para teletransportarse a él y duplicar el alcance del Surge.<br><span class="ability-aug">⬡ AUGMENT — Critical Surge: Teletransportarse a un Reservoir cuesta un <strong style="color:var(--damage-energy)">50% de Energía</strong> y otorga un 10% de Critical Chance a las armas primarias por cada metro recorrido durante 9s, hasta un máximo de <strong style="color:var(--accent2)">250%.</strong></span></div></div>
+      </div>
+      <div class="ability-detail">
+        <div class="ability-detail-icon"><img src="Ability/WispSolGate.png" alt=""></div>
+        <div><div class="ability-detail-key">4 — HABILIDAD</div><div class="ability-detail-name">SOL GATE</div><div class="ability-detail-desc">Abre un portal al sol para irradiar a los enemigos con un devastador rayo de plasma solar puro. Mantén el disparo para duplicar el daño a costa de un mayor consumo de <strong style="color:var(--damage-energy)">energía.</strong> Durante el ataque, los enemigos afectados por Sol Gate se vuelven cada vez más <strong style="color:var(--damage-slash)">vulnerables</strong> a este.<br><span class="ability-aug">⬡ AUGMENT — Cataclysmic Gate: Wisp y 2 imágenes espectrales lanzan una única descarga de Sol Gate, dejando un área que inflige <strong style="color:var(--damage-slash)">500 de daño de Calor</strong> por segundo, con efectos de estado de <strong style="color:var(--damage-slash)">Calor</strong> y <strong style="color:var(--damage-toxin)">Radiación</strong> garantizados durante 10 s.</span></div></div>
+      </div>
+    </section>
+
+    <!-- 03 CRAFTING -->
+    <section class="section" id="crafting">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Crafting</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="section-body">
+        <p>Wisp puede ser obtenido al derrotar un <strong>jefe</strong> (Ver adquisición), o puede ser obtenido comprándolo desde el mercado por <strong style="color:var(--accent)">325</strong><i class="fa-solid fa-coins"></i>. Además, Wisp, tiene una variante Prime que pueden ser adquiridas mediante las Reliquias del Vacío.</p>
+
+        <!-- Foundry Overview -->
+        <div class="foundry-grid" style="margin-top:1.2rem;">
+          <div class="foundry-item"><div class="foundry-icon">⏱</div><div><div class="foundry-name">Tiempo de Construcción</div><div class="foundry-val">72 Horas</div><div class="foundry-note">12h por componente</div></div></div>
+          <div class="foundry-item"><div class="foundry-icon">💰</div><div><div class="foundry-name">Créditos Totales</div><div class="foundry-val">70,000 Credits</div><div class="foundry-note">15k × 3 partes + 25k principal</div></div></div>
+          <div class="foundry-item"><div class="foundry-icon">🔧</div><div><div class="foundry-name">Componentes</div><div class="foundry-val">Neuropticas · Chasis · Sistemas</div><div class="foundry-note">Los tres requeridos</div></div></div>
+          <div class="foundry-item"><div class="foundry-icon">⚡</div><div><div class="foundry-name">Coste de Rush</div><div class="foundry-val">50 Platinos</div><div class="foundry-note">Saltea el tiempo de construcción</div></div></div>
+        </div>
+
+        <!-- ── NON-PRIME ── -->
+        <div class="crafting-variant-title standard" style="margin-top:1.8rem;">
+          Wisp — Partes estándares <span class="vtag vtag-std">Non-Prime</span>
+        </div>
+
+        <!-- Neuroptics -->
+        <div class="part-card">
+          <div class="part-card-header">
+            <img src="Parts/Neuroptics.webp" alt="Ash Neuroptics" class="part-img">
+            <div class="part-header-info">
+              <div class="part-name">Plano de las Neuropticas</div>
+              <div class="part-build-time">⏱ Tiempo de construcción: 12 horas</div>
+            </div>
+          </div>
+          <table class="part-table">
+            <thead><tr><th>Material</th><th>Qty</th><th>Fuente</th></tr></thead>
+            <tbody>
+              <tr><td><img src="Materials/Hexenon.webp" alt=""> Hexenon</td><td class="qty">300</td><td>Júpiter</td></tr>
+              <tr><td><img src="Materials/Telurio.webp" alt=""> Telurio</td><td class="qty">2</td><td>Urano</td></tr>
+              <tr><td><img src="Materials/plastidos.webp" alt=""> Plastidos</td><td class="qty">950</td><td>Saturno, Urano, Fobos, Plutón, Eris</td></tr>
+              <tr><td><img src="Materials/PolymerBundle.webp" alt=""> Polímeros</td><td class="qty">2.200</td><td>Mercurio, Venus, Urano</td></tr>
+              <tr><td><img src="Materials/credits.webp" alt=""> Créditos</td><td class="credits">15.000</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Chassis -->
+        <div class="part-card">
+          <div class="part-card-header">
+            <img src="Parts/Chassis.webp" alt="Ash Chassis" class="part-img">
+            <div class="part-header-info">
+              <div class="part-name">Plano del Chasis</div>
+              <div class="part-build-time">⏱ Tiempo de construcción: 12 horas</div>
+            </div>
+          </div>
+          <table class="part-table">
+            <thead><tr><th>Material</th><th>Qty</th><th>Fuente</th></tr></thead>
+            <tbody>
+              <tr><td><img src="Materials/Hexenon.webp" alt=""> Hexenon</td><td class="qty">500</td><td>Júpiter</td></tr>
+              <tr><td><img src="Materials/Cristal_de_argon.webp" alt=""> Cristal de Argon</td><td class="qty">1</td><td>Vacío</td></tr>
+              <tr><td><img src="Materials/Oxium.webp" alt=""> Oxium</td><td class="qty">700</td><td>Europa, Saturno, Neptuno, Venus, Júpiter</td></tr>
+              <tr><td><img src="Materials/AlloyPlate.webp" alt=""> Placa de Aleación</td><td class="qty">2.750</td><td>Venus, Júpiter, Ceres, Sedna, Plutón</td></tr>
+              <tr><td><img src="Materials/credits.webp" alt=""> Credits</td><td class="credits">15.000</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Systems -->
+        <div class="part-card">
+          <div class="part-card-header">
+            <img src="Parts/Systems.webp" alt="Ash Systems" class="part-img">
+            <div class="part-header-info">
+              <div class="part-name">Plano de los Sistemas</div>
+              <div class="part-build-time">⏱ Tiempo de construcción: 12 horas</div>
+            </div>
+          </div>
+          <table class="part-table">
+            <thead><tr><th>Material</th><th>Qty</th><th>Fuente</th></tr></thead>
+            <tbody>
+              <tr><td><img src="Materials/Hexenon.webp" alt=""> Hexenon</td><td class="qty">400</td><td>Júpiter</td></tr>
+              <tr><td><img src="Materials/Extracto_de_nitain.webp" alt=""> Extracto de Nitain</td><td class="qty">2</td><td>Onda Nocturna</td></tr>
+              <tr><td><img src="Materials/Rubedo.webp" alt=""> Rubedo</td><td class="qty">950</td><td>Fobos, Tierra, Plutón, Europa, Sedna</td></tr>
+              <tr><td><img src="Materials/Salvage.webp" alt=""> Restos</td><td class="qty">10.000</td><td>Marte, Júpiter, Sedna</td></tr>
+              <tr><td><img src="Materials/credits.webp" alt=""> Credits</td><td class="credits">15.000</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ── PRIME DIVIDER ── -->
+        <div class="crafting-divider"></div>
+
+        <!-- ── PRIME ── -->
+        <div class="crafting-variant-title prime">
+          Wisp Prime — Partes Prime <span class="vtag vtag-prm">Prime</span>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1rem;position:relative;">Las partes de Wisp Prime son obtenidas exclusivamente de las <strong style="color:var(--accent-gold)">Reliquias del Vacío</strong>. Chequear las rotaciones o comprar los items en warframe.market. Todas las partes prime requieren <strong style="color:var(--accent-gold)">Células Orokin</strong> además de los materiales listados a continuación.</p>
+
+        <!-- Prime Neuroptics -->
+        <div class="part-card">
+          <div class="part-card-header prime-header">
+            <img src="Parts/neuropticsprime.png" alt="Ash Prime Neuroptics" class="part-img prime-img">
+            <div class="part-header-info">
+              <div class="part-name prime-name">Neuroptics Blueprint (Prime)</div>
+              <div class="part-build-time">⏱ Tiempo de construcción: 12 horas</div>
+            </div>
+          </div>
+          <table class="part-table">
+            <thead><tr><th>Material</th><th>Qty</th><th>Source</th></tr></thead>
+            <tbody>
+              <tr><td><img src="Materials/Neurodos.webp" alt=""> Neurodos</td><td class="qty prime-qty">10</td><td>Tierra, Eris, Deimos</td></tr>
+              <tr><td><img src="Materials/Cristal_de_argon.webp" alt=""> Cristal de Argón</td><td class="qty prime-qty">2</td><td>Vacío</td></tr>
+              <tr><td><img src="Materials/Rubedo.webp" alt=""> Rubedo</td><td class="qty prime-qty">1.500</td><td>Fobos, Tierra, Plutón, Europa, Sedna</td></tr>
+              <tr><td><img src="Materials/Ferrita.webp" alt=""> Ferrita</td><td class="qty prime-qty">6.750</td><td>Mercurio, Tierra, Neptuno, Vacío</td></tr>
+              <tr><td><img src="Materials/credits.webp" alt=""> Credits</td><td class="credits">15.000</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Prime Chassis -->
+        <div class="part-card">
+          <div class="part-card-header prime-header">
+            <img src="Parts/chassisprime.webp" alt="Ash Prime Chassis" class="part-img prime-img">
+            <div class="part-header-info">
+              <div class="part-name prime-name">Chassis Blueprint (Prime)</div>
+              <div class="part-build-time">⏱ Tiempo de construcción: 12 horas</div>
+            </div>
+          </div>
+          <table class="part-table">
+            <thead><tr><th>Material</th><th>Qty</th><th>Source</th></tr></thead>
+            <tbody>
+              <tr><td><img src="Materials/Galio.webp" alt=""> Galio</td><td class="qty prime-qty">7</td><td>Marte, Urano</td></tr>
+              <tr><td><img src="Materials/PolymerBundle.webp" alt=""> Polímeros</td><td class="qty prime-qty">2.150</td><td>Mercurio, Venus, Urano</td></tr>
+              <tr><td><img src="Materials/Oxium.webp" alt=""> Oxium</td><td class="qty prime-qty">250</td><td>Europa, Saturno, Neptuno, Venus, Júpiter</td></tr>
+              <tr><td><img src="Materials/Nanoesporas.webp" alt=""> Nanoesporas</td><td class="qty prime-qty">8.750</td><td>Saturno, Neptuno, Eris, Derrelicto Orokin</td></tr>
+              <tr><td><img src="Materials/credits.webp" alt=""> Credits</td><td class="credits">15.000</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Prime Systems -->
+        <div class="part-card">
+          <div class="part-card-header prime-header">
+            <img src="Parts/systemsprime.webp" alt="Ash Prime Systems" class="part-img prime-img">
+            <div class="part-header-info">
+              <div class="part-name prime-name">Systems Blueprint (Prime)</div>
+              <div class="part-build-time">⏱ Tiempo de construcción: 12 horas</div>
+            </div>
+          </div>
+          <table class="part-table">
+            <thead><tr><th>Material</th><th>Qty</th><th>Source</th></tr></thead>
+            <tbody>
+              <tr><td><img src="Materials/Extracto_de_nitain.webp" alt=""> Extracto de Nitain</td><td class="qty prime-qty">2</td><td>Onda Nocturna</td></tr>
+              <tr><td><img src="Materials/Telurio.webp" alt=""> Telurio</td><td class="qty prime-qty">2</td><td>Urano</td></tr>
+              <tr><td><img src="Materials/Circuitos.webp" alt=""> Circuitos</td><td class="qty prime-qty">1.350</td><td>Venus, Ceres</td></tr>
+              <tr><td><img src="Materials/Salvage.webp" alt=""> Restos</td><td class="qty prime-qty">4.375</td><td>Marte, Júpiter, Sedna</td></tr>
+              <tr><td><img src="Materials/credits.webp" alt=""> Credits</td><td class="credits">15,000</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 04 ACQUISITION -->
+    <section class="section" id="acquisition">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Adquisición</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="section-body">
+        <div class="crafting-variant-title standard" style="margin-top:1.8rem;">
+            Wisp — Partes estándares <span class="vtag vtag-std">Non-Prime</span>
+        </div>
+        <div class="part-card">
+          <table class="part-table">
+            <thead><tr><th>Objeto</th><th>Fuente</th><th>Prob %</th><th>Esperado</th></tr></thead>
+            <tbody>
+              <tr><td><img src="Warframes/Wisp.webp" alt=""> Plano de Wisp</td><td class="qty">Ropalolyst Assassination</td><td>22,56%</td><td>~4 Asesinatos</td></tr>
+              <tr><td><img src="Parts/Chassis.webp" alt=""> Plano del Chasis</td><td class="qty">Ropalolyst Assassination</td><td>25,81%</td><td>~3 Asesinatos</td></tr>
+              <tr><td><img src="Parts/Neuroptics.webp" alt=""> Plano de las Neuropticas</td><td class="qty">Ropalolyst Assassination</td><td>25,81%</td><td>~3 Asesinatos</td></tr>
+              <tr><td><img src="Parts/Systems.webp" alt=""> Plano de los Sistemas</td><td class="qty">Ropalolyst Assassination</td><td>25,81%</td><td>~3 Asesinatos</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="crafting-variant-title prime">
+          Wisp Prime — Partes Prime <span class="vtag vtag-prm">Prime</span>
+        </div>
+        <div class="part-card">
+          <table class="part-table prime-market-table">
+            <thead>
+              <tr>
+                <th>Objeto</th>
+                <th>Precio</th>
+                <th>Vendedor</th>
+                <th>Fuente</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="prime-market-row">
+                <td><img src="Warframes/WispPrime.png" alt=""> Plano de Wisp Prime</td>
+                <td><span class="wfprice"><span class="plat-icon-sm"></span>— pl</span></td>
+                <td><span class="wfseller">—</span></td>
+                <td><button class="relic-ver-btn" onclick="toggleRelics(this)">Ver</button></td>
+              </tr>
+              <tr class="relic-expand-row" style="display:none">
+                <td colspan="4">
+                  <div class="relic-panel">
+                    <div class="relic-panel-label">Reliquias que contienen Plano de Wisp Prime</div>
+                    <div class="relic-cards">
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Meso W3 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Meso W4 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Neo.png" alt=""></div><a class="relic-name" href="#">Neo W2 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Axi.webp" alt=""></div><a class="relic-name" href="#">Axi W3 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Axi.webp" alt=""></div><a class="relic-name" href="#">Axi W4 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="prime-market-row">
+                <td><img src="Parts/chassisprime.webp" alt=""> Plano del Chasis Prime</td>
+                <td><span class="wfprice"><span class="plat-icon-sm"></span>— pl</span></td>
+                <td><span class="wfseller">—</span></td>
+                <td><button class="relic-ver-btn" onclick="toggleRelics(this)">Ver</button></td>
+              </tr>
+              <tr class="relic-expand-row" style="display:none">
+                <td colspan="4">
+                  <div class="relic-panel">
+                    <div class="relic-panel-label">Reliquias que contienen Plano del Chasis Prime</div>
+                    <div class="relic-cards">
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Lith.png" alt=""></div><a class="relic-name" href="#">Lith W3 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Lith.png" alt=""></div><a class="relic-name" href="#">Lith W4 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Meso W5 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Neo.png" alt=""></div><a class="relic-name" href="#">Neo H4 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Neo.png" alt=""></div><a class="relic-name" href="#">Neo W1 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>2%</b></span><span>Exceptional: <b>4%</b></span></div><div class="relic-chances"><span>Flawless: <b>6%</b></span><span>Radiant: <b>10%</b></span></div></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="prime-market-row">
+                <td><img src="Parts/neuropticsprime.png" alt=""> Plano de las Neuropticas Prime</td>
+                <td><span class="wfprice"><span class="plat-icon-sm"></span>— pl</span></td>
+                <td><span class="wfseller">—</span></td>
+                <td><button class="relic-ver-btn" onclick="toggleRelics(this)">Ver</button></td>
+              </tr>
+              <tr class="relic-expand-row" style="display:none">
+                <td colspan="4">
+                  <div class="relic-panel">
+                    <div class="relic-panel-label">Reliquias que contienen Plano de las Neuropticas Prime</div>
+                    <div class="relic-cards">
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Lith.png" alt=""></div><a class="relic-name" href="#">Lith A7 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Lith.png" alt=""></div><a class="relic-name" href="#">Lith G13 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Lith.png" alt=""></div><a class="relic-name" href="#">Lith L6 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Meso K6 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Neo K6 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Neo A13 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Axi F2 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="prime-market-row">
+                <td><img src="Parts/systemsprime.webp" alt=""> Plano de los Sistemas Prime</td>
+                <td><span class="wfprice"><span class="plat-icon-sm"></span>— pl</span></td>
+                <td><span class="wfseller">—</span></td>
+                <td><button class="relic-ver-btn" onclick="toggleRelics(this)">Ver</button></td>
+              </tr>
+              <tr class="relic-expand-row" style="display:none">
+                <td colspan="4">
+                  <div class="relic-panel">
+                    <div class="relic-panel-label">Reliquias que contienen Plano de los Sistemas Prime</div>
+                    <div class="relic-cards">
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Lith.png" alt=""></div><a class="relic-name" href="#">Lith N15 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Lith.png" alt=""></div><a class="relic-name" href="#">Lith Q1 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Meso G7 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Meso G10 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Meso T7 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Meso.png" alt=""></div><a class="relic-name" href="#">Neo D7 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Axi.webp" alt=""></div><a class="relic-name" href="#">Axi A17 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                      <div class="relic-card vaulted"><div class="relic-img-wrap"><img src="Relics/Axi.webp" alt=""></div><a class="relic-name" href="#">Axi B7 Relic</a><span class="relic-vault-tag">Vaulted</span><div class="relic-rarity">Uncommon</div><div class="relic-chances"><span>Intact: <b>11%</b></span><span>Exceptional: <b>13%</b></span></div><div class="relic-chances"><span>Flawless: <b>17%</b></span><span>Radiant: <b>20%</b></span></div></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 05 CURIOSITIES -->
+    <section class="section" id="curiosities">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Curiosidades</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="section-body">
+        <ul class="curiosities-list">
+          <li class="curiosity-item"><div class="curiosity-bullet"></div><div class="curiosity-text">Wisp es el primer Warframe diseñado sin pies en su modelo; como resultado, ella <strong>flota sobre el suelo</strong> constantemente, inclinándose hacia la dirección donde se mueva o flotando en posición vertical cuando está inmóvil.</div></li>
+          <li class="curiosity-item"><div class="curiosity-bullet"></div><div class="curiosity-text">Wisp fue mencionada por primera vez en el <strong>Devstream 115</strong> junto con otros 2 Warframes sin nombre, y fue mencionada nuevamente en el Devstream 122 junto con Hildryn.</div></li>
+          <li class="curiosity-item"><div class="curiosity-bullet"></div><div class="curiosity-text">Wisp es el Warframe número <strong>40</strong> en ser presentado.</div></li>
+          <li class="curiosity-item"><div class="curiosity-bullet"></div><div class="curiosity-text">Las habilidades y animaciones de Wisp se presentaron en el <strong>Devstream 126</strong>.</div></li>
+          <li class="curiosity-item"><div class="curiosity-bullet"></div><div class="curiosity-text">El tema de Wisp gira en torno al <em>Will-o'-the-wisp</em>, apariciones de otro mundo mencionadas en diversos folclores. Son descritos más comúnmente como una <strong>luz ardiente</strong> que distraía y atraía a los viajeros incautos hacia su desaparición.</div></li>
+          <li class="curiosity-item"><div class="curiosity-bullet"></div><div class="curiosity-text">Wisp es una de los pocos Warframes cuyo <strong>plano principal</strong> se encuentra como recompensa de botín; las otras son Khora e Ivara.</div></li>
+          <li class="curiosity-item"><div class="curiosity-bullet"></div><div class="curiosity-text">Wisp es el primer Warframe que requiere <strong>Hexenon</strong> para construirse.</div></li>
+        </ul>
+      </div>
+    </section>
+    
+    
+    <!-- 06 BUILDS -->
+
+    <section class="section" id="builds">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Builds</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="section-body">
+        <p>En esta sección solamente se mostrará la build con mayor cantidad de votos en <a href="https://overframe.gg" target="_blank">overframe.gg</a></p>
+    
+        <br>
+
+    
+        <!-- Votos + formas -->
+        <div class="build-header">
+          <span class="votes-arrow">▲</span>
+          <span class="votes-num">1784 votos</span>
+          <span class="votes-label">más votada · overframe.gg</span>
+          <span class="formas-info">5×</span><img src="Polarities/Forma.webp" alt="Forma">
+        </div>
+    
+        <div class="build-grid">
+    
+          <!-- FILA 1: AURA + EXILUS centrados -->
+          <div class="build-row">
+    
+            <!-- AURA: Worthy Comradery — Madurai, sin forma -->
+            <div class="mod-slot">
+              <span class="mod-type-label">Aura</span>
+              <div class="mod-card">
+                <img src="Mods_build/Worthy-Comradery.png" alt="Worthy Comradery">
+                <div class="mod-tooltip"><img src="Mods/WorthyComraderyMod.png" alt="Worthy Comradery full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Madurai_Pol.svg" alt="Madurai">
+                <span class="forma-badge">forma</span>
+              </div>
+            </div>
+    
+            <!-- EXILUS: Aero Vantage — Naramon, sin forma -->
+            <div class="mod-slot">
+              <span class="mod-type-label">Exilus</span>
+              <div class="mod-card">
+                <img src="Mods_build/Aero-Vantage.png" alt="Aero Vantage">
+                <div class="mod-tooltip"><img src="Mods/AeroVantageMod.png" alt="Aero Vantage full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Naramon_Pol.svg" alt="Naramon">
+              </div>
+            </div>
+    
+          </div>
+    
+          <!-- FILA 2: Mod 1–4 -->
+          <div class="build-row">
+    
+            <!-- Mod 1: Madurai + FORMA -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Primed-Continuity.png" alt="Mod 1">
+                <div class="mod-tooltip"><img src="Mods/PrimedContinuityMod.webp" alt="Mod 1 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Madurai_Pol.svg" alt="Madurai">
+              </div>
+            </div>
+    
+            <!-- Mod 2: Naramon + FORMA -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Archon-Stretch.png" alt="Mod 2">
+                <div class="mod-tooltip"><img src="Mods/ArchonStretchMod.webp" alt="Mod 2 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Naramon_Pol.svg" alt="Naramon">
+                <span class="forma-badge">forma</span>
+              </div>
+            </div>
+    
+            <!-- Constitution: Naramon + FORMA -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Constitution.png" alt="Mod 3">
+                <div class="mod-tooltip"><img src="Mods/ConstitutionMod.webp" alt="Mod 3 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Naramon_Pol.svg" alt="Naramon">
+                <span class="forma-badge">forma</span>
+              </div>
+            </div>
+    
+            <!-- Mod 4: Madurai + FORMA -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Blind-Rage.png" alt="Mod 4">
+                <div class="mod-tooltip"><img src="Mods/BlindRageMod.webp" alt="Mod 4 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Madurai_Pol.svg" alt="Madurai">
+                <span class="forma-badge">forma</span>
+              </div>
+            </div>
+    
+          </div>
+    
+          <!-- FILA 3: Mod 5–8 -->
+          <div class="build-row">
+    
+            <!-- Mod 5: Naramon + FORMA -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Equilibrium.png" alt="Mod 5">
+                <div class="mod-tooltip"><img src="Mods/EquilibriumMod.webp" alt="Mod 5 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Naramon_Pol.svg" alt="Naramon">
+              </div>
+            </div>
+    
+            <!-- Mod 6: Naramon, sin forma -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Augur-Secrets.png" alt="Mod 6">
+                <div class="mod-tooltip"><img src="Mods/AugurSecretsMod.webp" alt="Mod 6 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Naramon_Pol.svg" alt="Naramon">
+              </div>
+            </div>
+    
+            <!-- Mod 7: Umbra, sin forma -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Umbral-Intensify.png" alt="Mod 7">
+                <div class="mod-tooltip"><img src="Mods/UmbralIntensifyMod.webp" alt="Mod 7 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Umbra_Pol.svg" alt="Umbra">
+              </div>
+            </div>
+    
+            <!-- Mod 8: Naramon + FORMA -->
+            <div class="mod-slot">
+              <div class="mod-card">
+                <img src="Mods_build/Augur-Message.png" alt="Mod 8">
+                <div class="mod-tooltip"><img src="Mods/AugurMessageMod.webp" alt="Mod 8 full"></div>
+              </div>
+              <div class="mod-meta">
+                <img class="polarity-icon" src="Polarities/Naramon_Pol.svg" alt="Naramon">
+                <span class="forma-badge">forma</span>
+              </div>
+            </div>
+    
+          </div>
+    
+          <!-- ARCANES: centrados debajo -->
+          <div class="build-row-arcanes">
+    
+            <!-- Arcane Concentration -->
+            <div class="mod-slot">
+              <div class="arcane-card">
+                <img src="Arcanes/ArcaneConcentration.png" alt="Arcane Concentration">
+                <div class="arcane-tooltip">
+                  <strong>Arcane Concentration</strong>
+                  En ability cast: +60% Duración de la habilidad por 3.0s
+                </div>
+              </div>
+              <span class="arcane-name">Arcane Concentration</span>
+            </div>
+    
+            <!-- Arcane Crepuscular -->
+            <div class="mod-slot">
+              <div class="arcane-card">
+                <img src="Arcanes/ArcaneCrepuscular.png" alt="Arcane Crepuscular">
+                <div class="arcane-tooltip">
+                  <strong>Arcane Crepuscular</strong>
+                  En invisibilidad, gana +30% Fuerza de habilidad y +3x Daño Crítico Final.
+                </div>
+              </div>
+              <span class="arcane-name">Arcane Crepuscular</span>
+            </div>
+    
+          </div>
+    
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  WARFRAME HUB · Fan-made Wiki · No afiliado con Digital Extremes ·
+  <a href="https://www.warframe.com/es" target="_blank">warframe.com</a> · <a href="https://wiki.warframe.com/" target="_blank">wiki.warframe.com</a> · <a href="https://warframe.fandom.com/es/wiki/Wiki_Warframe_Espa%C3%B1ol" target="_blank">warframe.fandom.com</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

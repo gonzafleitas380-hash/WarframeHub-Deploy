@@ -1,0 +1,140 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, 
+SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema warframe
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `warframe` DEFAULT CHARACTER SET utf8mb4 ;
+USE `warframe` ;
+
+-- -----------------------------------------------------
+-- Table `perfil` --La tabla perfil se usaría para guardar la información visual y editable del usuario (como avatar, banner y descripción)
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `perfil` (
+  `id_perfil` INT NOT NULL AUTO_INCREMENT,
+  `avatar` VARCHAR(255),
+  `banner` VARCHAR(255),
+  `descripcion` TEXT,
+  PRIMARY KEY (`id_perfil`)
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `usuarios` --Login y registro
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `contrasena` VARCHAR(255) NOT NULL,
+  `perfil_id_perfil` INT NOT NULL UNIQUE,
+  PRIMARY KEY (`id_usuario`),
+  INDEX `fk_usuarios_perfil_idx` (`perfil_id_perfil`),
+  CONSTRAINT `fk_usuarios_perfil`
+    FOREIGN KEY (`perfil_id_perfil`)
+    REFERENCES `perfil` (`id_perfil`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+-- en caso que de error el email, se agrega aparte
+
+-- Agregado de email a usuarios
+ALTER TABLE usuarios
+MODIFY COLUMN email VARCHAR(100) NOT NULL UNIQUE;
+-- 2. sp_registrar_usuario actualizado
+DROP PROCEDURE IF EXISTS sp_registrar_usuario;
+DELIMITER $$
+CREATE PROCEDURE sp_registrar_usuario(
+    IN p_nombre     VARCHAR(45),
+    IN p_apellido   VARCHAR(45),
+    IN p_username   VARCHAR(45),
+    IN p_email      VARCHAR(100),
+    IN p_contrasena VARCHAR(255)
+)
+BEGIN
+    DECLARE v_perfil_id INT;
+
+    IF p_nombre = '' OR p_nombre IS NULL OR
+       p_apellido = '' OR p_apellido IS NULL OR
+       p_username = '' OR p_username IS NULL OR
+       p_email = '' OR p_email IS NULL OR
+       p_contrasena = '' OR p_contraseña IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: todos los campos son obligatorios.';
+    END IF;
+
+    IF EXISTS (SELECT 1 FROM usuarios WHERE username = p_username) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: ese username ya está en uso.';
+    END IF;
+
+    IF EXISTS (SELECT 1 FROM usuarios WHERE email = p_email) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: ese email ya está registrado.';
+    END IF;
+
+    START TRANSACTION;
+
+        INSERT INTO perfil (avatar, banner, descripcion)
+        VALUES (NULL, NULL, NULL);
+
+        SET v_perfil_id = LAST_INSERT_ID();
+
+        INSERT INTO usuarios (nombre, apellido, username, email, contrasena, perfil_id_perfil)
+        VALUES (p_nombre, p_apellido, p_username, p_email, p_contrasena, v_perfil_id);
+
+    COMMIT;
+
+    SELECT LAST_INSERT_ID() AS id_usuario_creado, v_perfil_id AS id_perfil_creado;
+END$$
+DELIMITER ;
+
+-- lo que hace esta tabla es guardar los warframes que un usuario marcó como favoritos.
+
+CREATE TABLE IF NOT EXISTS `warframe`.`favoritos` (
+  `id_favorito` INT NOT NULL AUTO_INCREMENT,
+  `nombre_warframe` VARCHAR(45) NOT NULL,
+  `fecha_agregado` DATETIME NOT NULL,
+  `id_usuario` INT NOT NULL,
+  PRIMARY KEY (`id_favorito`),
+INDEX `fk_favoritos_usuarios1_idx` (`id_usuario` ASC),
+CONSTRAINT `fk_favoritos_usuarios1`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `warframe`.`usuarios` (`id_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- lo que hace esta tabla es guardar las publicaciones del mercado que quiero revisar después
+
+-- -----------------------------------------------------
+-- Table `warframe`.`compras_guardadas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `warframe`.`compras_guardadas` (
+  `id_compra` INT NOT NULL AUTO_INCREMENT,
+  `nombre_item` VARCHAR(100) NOT NULL,
+  `url_nombre` VARCHAR(255) NOT NULL,
+  `vendedor` VARCHAR(45) NOT NULL,
+  `precio` DECIMAL(10,2) NOT NULL,
+  `estado_del_vendedor` VARCHAR(45) NOT NULL,
+  `fecha_guardado` DATETIME NOT NULL,
+  `id_usuario` INT NOT NULL,
+  PRIMARY KEY (`id_compra`),
+  INDEX `fk_compras_guardadas_usuarios1_idx` (`id_usuario` ASC),
+CONSTRAINT `fk_compras_guardadas_usuarios1`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `warframe`.`usuarios` (`id_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    env_file:
+      - ./backend/.env   # DB_HOST, DB_USER, DB_PASS, DB_NAME — nunca se hornea en la imagen
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+# La base de datos (MySQL) NO se dockeriza acá: se instala el motor
+# y se corren los scripts de "Mysql/Base de datos" y "Stored Procedure"
+# directamente en el servidor del cliente, como indica el documento
+# del profesor. DB_HOST en backend/.env debe apuntar a esa instancia
+# (por ejemplo, la IP del host si MySQL corre fuera de Docker, usando
+# host.docker.internal en Windows/Mac, o la IP del host en Linux).
