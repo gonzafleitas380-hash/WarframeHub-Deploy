@@ -204,3 +204,7 @@ Modelos de datos clave
 •	Referencia de Warframes: https://warframe.fandom.com/wiki/Warframe_Wiki (fuente de datos para seed)
 •	Herramienta de diseño: por definir (Figma)
 •	Total de Warframes en scope del MVP: 64
+
+Integracion continua (Jenkins)
+•	El Jenkinsfile instala dependencias, corre los tests de backend y frontend, buildea el frontend y archiva dist/.
+•	Cada push a main dispara el pipeline automaticamente via webhook de GitHub.
