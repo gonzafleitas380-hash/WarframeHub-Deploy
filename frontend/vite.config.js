@@ -18,6 +18,8 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    setupFiles: './src/test/setup.js'
+    setupFiles: './src/test/setup.js',
+    // En Jenkins el primer render con jsdom puede pasar los 5s por defecto
+    testTimeout: 30000
   }
 })
